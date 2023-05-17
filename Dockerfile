@@ -25,9 +25,7 @@ RUN mkdir /video_files/live
 RUN mkdir /video_files/archive
 RUN mkdir /video_files/clips
 VOLUME /video_files
-#RUN mkdir /video_files/live
-#RUN mkdir /video_files/archive
-#RUN mkdir /video_files/clips
+RUN chmod -R 777 /video_files
 
 # Video Clip script into CGI server folder
 COPY clip.sh /cgi-bin/clip.sh
