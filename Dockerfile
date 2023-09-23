@@ -1,4 +1,3 @@
-
 FROM alpine:latest
 
 ## Install Alpine Packages
@@ -9,15 +8,15 @@ RUN apk add nginx-mod-rtmp
 RUN apk add ffmpeg
 RUN apk add python3
 ## Networking tools
-#RUN apk add lsof
+# RUN apk add lsof
 ## Init System not needed
-#Run apk add openrc
+# Run apk add openrc
 
 ## Append to the Nginx Config
-#COPY rtmp.conf /etc/nginx/rtmp.conf
+# COPY rtmp.conf /etc/nginx/rtmp.conf
 COPY rtmp.conf /tmp/rtmp.conf
 RUN cat /tmp/rtmp.conf >> /etc/nginx/modules/10_rtmp.conf
-#RUN cat /tmp/rtmp.conf >> /etc/nginx/nginx.conf
+# RUN cat /tmp/rtmp.conf >> /etc/nginx/nginx.conf
 
 ## Create the shared directory
 RUN mkdir /video_files
