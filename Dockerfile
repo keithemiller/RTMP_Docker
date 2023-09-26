@@ -13,10 +13,22 @@ RUN apk add python3
 # Run apk add openrc
 
 ## Append to the Nginx Config
-# COPY rtmp.conf /etc/nginx/rtmp.conf
+#COPY rtmp.conf /etc/nginx/rtmp.conf
 COPY rtmp.conf /tmp/rtmp.conf
+#COPY rtmp2.conf /tmp/rtmp.conf
 RUN cat /tmp/rtmp.conf >> /etc/nginx/modules/10_rtmp.conf
-# RUN cat /tmp/rtmp.conf >> /etc/nginx/nginx.conf
+#RUN cat /tmp/rtmp.conf > /etc/nginx/modules/10_rtmp.conf
+
+## Append to the sites-available/rtmp
+COPY sites_available_append.txt /tmp/sites_available_append.txt
+RUN mkdir /etc/nginx/sites-available/
+RUN cat /tmp/sites_available_append.txt >> /etc/nginx/sites-available/rtmp
+
+## Create HLS/Dash stream directory
+RUN mkdir /var/www/html/
+RUN mkdir /var/www/html/stream
+RUN chmod -R 777 /var/www
+#RUN chown -R www-data:www-data /var/www
 
 ## Create the shared directory
 RUN mkdir /video_files
@@ -35,6 +47,7 @@ RUN chmod +x /start.sh
 
 EXPOSE 1935/tcp
 EXPOSE 80
+EXPOSE 8088
 EXPOSE 8080
 
 CMD ["/start.sh"]

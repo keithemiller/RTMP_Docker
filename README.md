@@ -1,6 +1,15 @@
 # About
-This Docker container will host the instant-replay service for the streams coming from the TopShelf light fixture.
-
+[Github URL](git remote add origin git@github.com:keithemiller/RTMP_Docker.git)
+This Docker container will host the instant-replay service for the streams coming from the TopShelf light fixture. Consumes RTMP streams on `port 1935` and can get controlled on `port 80`. 
+## Running
+To build the docker container use:
+`docker build -t rtmp .`
+To run the docker container use:
+`docker run --name RTMP_Server -p 80:80 -p 1935:1935 -p 8080:8080 -it rtmp`
+# Example Stuffs
+[Example making RTMP](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-video-streaming-server-using-nginx-rtmp-on-ubuntu-20-04)
+# Directives
+[Github Page on RTMP Directives](https://github.com/arut/nginx-rtmp-module/wiki/Directives)
 # RTMP config stuff
 ### Example nginx.conf
 From [RTMP Github module](https://github.com/arut/nginx-rtmp-module)
@@ -216,3 +225,6 @@ From [RTMP Github module](https://github.com/arut/nginx-rtmp-module)
         }
     }
 
+# HLS
+HLS seems to be supported in the HTML5 `<video></video>` tag, but only on Safari and edge.
+[HLS Video Tag Test Page](https://walterebert.com/playground/video/hls/)
